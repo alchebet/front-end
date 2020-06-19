@@ -1,12 +1,19 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 import './App.css';
-import SignUp from '../Auth/SignUp';
+import AuthPage from '../Auth/Auth';
 
 function App() {
   return (
-    <div className="App">
-      <SignUp/>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={AuthPage} />
+      </Switch>
+    </Router>
   );
 }
 
