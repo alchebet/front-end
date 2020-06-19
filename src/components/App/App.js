@@ -6,13 +6,14 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import AuthPage from '../Auth/Auth';
+import Dashboard from '../Dashboard/Dashboard';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={AuthPage} />
-        <Route path="/dashboard" render={() => <h1>Dashboard</h1>} />
+        <Route path="/dashboard" component={Dashboard}/>
       </Switch>
     </Router>
   );

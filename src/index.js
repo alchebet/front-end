@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import { AlchebetProvider } from './components/hooks/Provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AlchebetProvider>
+      <App />
+    </AlchebetProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

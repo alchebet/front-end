@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { signup, login } from '../../services/auth';
 import './Auth.css';
 import { useHistory } from 'react-router-dom';
+import { useHandleSetUser } from '../hooks/Provider';
 
 export default function AuthPage() {
+
   return (
     <section className="Auth">
       <SignUp />
@@ -17,11 +19,13 @@ const withAuthForm = (title, authService, showDisplayName = false) => {
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
+    const setUser = useHandleSetUser();
     const history = useHistory();
   
-    const handleSignUp = (e) => {
+    const handleSubmit = (e) => {
       e.preventDefault();
       authService({ username, displayName, password })
+        .then(user => setUser(user))
         .then(() => history.push('/dashboard'));
     }
   
@@ -34,7 +38,8 @@ const withAuthForm = (title, authService, showDisplayName = false) => {
     return (
       <div>
         <h2>{title}</h2>
-        <form onSubmit={handleSignUp}>
+        <form 
+        onSubmit={(e) => {handleSubmit(e, authService)}}>
           <input
             type="text"
             value={username}
@@ -42,7 +47,8 @@ const withAuthForm = (title, authService, showDisplayName = false) => {
             onChange={handleChange}
             placeholder="Enter Username"
           />
-          {showDisplayName && <input
+          {showDisplayName && 
+          <input
             type="text"
             value={displayName}
             name="displayName"
