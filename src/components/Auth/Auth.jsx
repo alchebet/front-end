@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { signup, login } from '../../services/auth';
 import './Auth.css';
+import { useHistory } from 'react-router-dom';
 
 export default function AuthPage() {
   return (
@@ -16,11 +17,12 @@ const withAuthForm = (title, authService, showDisplayName = false) => {
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
   
     const handleSignUp = (e) => {
       e.preventDefault();
       authService({ username, displayName, password })
-        .then(console.log);
+        .then(() => history.push('/dashboard'));
     }
   
     const handleChange = ({ target }) => {

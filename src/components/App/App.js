@@ -12,6 +12,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={AuthPage} />
+        <Route path="/dashboard" render={() => <h1>Dashboard</h1>} />
       </Switch>
     </Router>
   );
