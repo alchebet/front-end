@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getGame, patchAnswer } from '../../services/game';
 import { useUser } from '../hooks/Provider'
-import { placeBet } from '../../services/bet';
+import { postGuess } from '../../services/guess';
 
 export default function Game() {
   const [game, setGame] = useState({});
   const [answer, setAnswer] = useState('');
-  const [bet, setBet] = useState('');
+  const [guess, setGuess] = useState('');
   const [isCreator, setIsCreator] = useState(false);
   const user = useUser();
   const {id} = useParams();
@@ -29,10 +29,10 @@ export default function Game() {
   }
 
 
-  const handleBetSubmit = (event) => {
+  const handleGuess = (event) => {
     event.preventDefault();
-    placeBet({game: id, guess: bet})
-    .then(() => alert('Bet submitted!'))
+    postGuess({game: id, guess: guess})
+    .then(() => alert('Guess submitted!'))
   }
 
   const isAnswer = () => {
@@ -57,8 +57,8 @@ export default function Game() {
     )
     else return (
       <>
-      <input type="text" placeholder="Enter your bet" value={bet} onChange={(e) => setBet(e.target.value)}/>
-      <button onClick={handleBetSubmit}>Submit Bet</button>
+      <input type="text" placeholder="Enter your guess" value={guess} onChange={(e) => setGuess(e.target.value)}/>
+      <button onClick={handleGuess}>Submit Guess</button>
       </>
     )
   }
