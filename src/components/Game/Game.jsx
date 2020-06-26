@@ -14,6 +14,7 @@ export default function Game() {
 
   return (
     <div>
+      <h1>Dashboard</h1>
       <h2>{game.title}</h2>
     </div>
   )

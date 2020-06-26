@@ -13,9 +13,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/:id" component={Game} />
-        <Route exact path="/" component={AuthPage} />
+        <Route exact path="/game/:id" component={Game} />
         <Route path="/dashboard" component={Dashboard}/>
+        <Route exact path="/" component={AuthPage} />
       </Switch>
     </Router>
   );
