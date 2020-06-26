@@ -57,11 +57,14 @@ export default function Game() {
     )
   }
 
+const gameGuesses = game.guess?.map(guess => (<li>bettor: {guess.bettor}, guess: {guess.guess}</li>))
+
   const creatorInfo = () => {
     if(isCreator)
     return (
       <div>
       {isAnswer()}
+      <ul>{gameGuesses}</ul>
       </div>
     )
     else if (currentGuess)
