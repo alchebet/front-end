@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getGame, patchAnswer } from '../../services/game';
 import { useUser } from '../hooks/Provider'
 import { postGuess } from '../../services/guess';
+import { useHistory } from 'react-router-dom';
 
 export default function Game() {
   const [game, setGame] = useState({});
@@ -11,6 +12,7 @@ export default function Game() {
   const [isCreator, setIsCreator] = useState(false);
   const user = useUser();
   const {id} = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     getGame(id)
@@ -31,6 +33,7 @@ export default function Game() {
     event.preventDefault();
     postGuess({game: id, guess: guess})
     .then(() => alert('Guess submitted!'))
+    .then(() => history.push('/dashboard'));
   }
 
   const isAnswer = () => {
@@ -53,6 +56,8 @@ export default function Game() {
       {isAnswer()}
       </div>
     )
+    else if (game.guess?.find(guess => guess.bettor === user._id))
+      return <h1>Already guessed!</h1>
     else return (
       <>
       <input type="text" placeholder="Enter your guess" value={guess} onChange={(e) => setGuess(e.target.value)}/>
