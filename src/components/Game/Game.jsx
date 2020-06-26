@@ -20,7 +20,7 @@ export default function Game() {
     .then(game => {
       setGame(game)
       setIsCreator(game.creator === user._id)
-      setCurrentGuess(game.guess?.find(guess => guess.bettor === user._id))
+      setCurrentGuess(game.guess?.find(guess => guess.bettor._id === user._id))
     })
     }, [id, user])
 
@@ -57,7 +57,7 @@ export default function Game() {
     )
   }
 
-const gameGuesses = game.guess?.map(guess => (<li>bettor: {guess.bettor}, guess: {guess.guess}</li>))
+const gameGuesses = game.guess?.map(guess => (<li>bettor: {guess.bettor.displayName}, guess: {guess.guess}</li>))
 
   const creatorInfo = () => {
     if(isCreator)
