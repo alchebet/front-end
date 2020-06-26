@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getGame, patchAnswer } from '../../services/game';
 import { useUser } from '../hooks/Provider'
-import { postGuess } from '../../services/guess';
+import { postGuess, patchGuess } from '../../services/guess';
 import { useHistory } from 'react-router-dom';
 
 export default function Game() {
   const [game, setGame] = useState({});
   const [answer, setAnswer] = useState('');
   const [guess, setGuess] = useState('');
+  const [currentGuess, setCurrentGuess] = useState({});
   const [isCreator, setIsCreator] = useState(false);
   const user = useUser();
   const {id} = useParams();
@@ -19,6 +20,7 @@ export default function Game() {
     .then(game => {
       setGame(game)
       setIsCreator(game.creator === user._id)
+      setCurrentGuess(game.guess?.find(guess => guess.bettor === user._id))
     })
     }, [id, user])
 
@@ -31,6 +33,12 @@ export default function Game() {
 
   const handleGuess = (event) => {
     event.preventDefault();
+    if(currentGuess) {
+      patchGuess(currentGuess._id, {guess: guess})
+      .then(() => alert('Guess updated!'))
+      .then(() => history.push('/dashboard'));
+    }
+    else
     postGuess({game: id, guess: guess})
     .then(() => alert('Guess submitted!'))
     .then(() => history.push('/dashboard'));
@@ -56,8 +64,15 @@ export default function Game() {
       {isAnswer()}
       </div>
     )
-    else if (game.guess?.find(guess => guess.bettor === user._id))
-      return <h1>Already guessed!</h1>
+    else if (currentGuess)
+      return (
+      <>
+      <h1>Already guessed {currentGuess.guess}!</h1>
+      <h2>Would you like to change your guess?</h2>
+      <input type="text" placeholder="Enter your new guess" value={guess} onChange={(e) => setGuess(e.target.value)}/>
+      <button onClick={handleGuess}>Submit New Guess</button>
+      </>
+      )
     else return (
       <>
       <input type="text" placeholder="Enter your guess" value={guess} onChange={(e) => setGuess(e.target.value)}/>
