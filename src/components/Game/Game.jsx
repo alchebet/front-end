@@ -14,12 +14,11 @@ export default function Game() {
 
   useEffect(() => {
     getGame(id)
-    .then(game => setGame(game))
-    }, [id])
-
-  useEffect(() => {
-    if(game.creator === user._id) setIsCreator(true)
-  }, [game, user])
+    .then(game => {
+      setGame(game)
+      setIsCreator(game.creator === user._id)
+    })
+    }, [id, user])
 
   const handleAnswerSubmit = (event) => {
     event.preventDefault();
@@ -27,7 +26,6 @@ export default function Game() {
     .then(() => alert('Answer submitted!'))
     .then(() => window.location.reload())
   }
-
 
   const handleGuess = (event) => {
     event.preventDefault();
