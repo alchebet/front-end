@@ -10,9 +10,9 @@ export default function ListOfGames() {
     .then(games => setGames(games))
   }, [])
 
-  const gameList = games.map(game => (
-    <Link to={`/${game._id}`}>
-    <li>{game.title}</li>
+  const gameList = games.map((game, i) => (
+    <Link to={`/game/${game._id}`} key={i}>
+    <li key={i}>{game.title}</li>
     </Link>
   ));
 

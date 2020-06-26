@@ -5,6 +5,7 @@ import ListOfGames from '../Game/ListOfGames';
 
 export default function Dashboard() {
  const user = useUser();
+ console.log(user)
 
   return (
     <div>

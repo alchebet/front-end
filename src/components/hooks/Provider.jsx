@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
+import { useEffect } from 'react';
+import { verify } from '../../services/auth';
 
 const AlchebetContext = createContext();
 
@@ -10,8 +12,12 @@ export const AlchebetProvider = ({ children }) => {
     console.log(user);
   }
 
+  useEffect(() => {
+    verify().then(user => setUser(user))
+  }, [])
+
   return (
-    <AlchebetContext.Provider 
+    <AlchebetContext.Provider
     value= {{ user, handleSetUser }}
     >
       {children}
