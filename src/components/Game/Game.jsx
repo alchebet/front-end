@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getGame, patchAnswer } from '../../services/game';
+import { getGame, patchGame } from '../../services/game';
 import { useUser } from '../hooks/Provider'
 import { postGuess, patchGuess } from '../../services/guess';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +27,7 @@ export default function Game() {
 
   const handleAnswerSubmit = (event) => {
     event.preventDefault();
-    patchAnswer(id, {answer: answer})
+    patchGame(id, {answer: answer})
     .then(() => alert('Answer submitted!'))
     .then(() => window.location.reload())
   }
@@ -77,7 +77,9 @@ const gameGuesses = game.guess?.map(guess => (
 
   const handleCloseGame = (event) => {
     event.preventDefault();
-    console.log(winners);
+    patchGame(id, {winners: winners})
+    .then(() => alert('Winner winner!'))
+    .then(() => history.push('/dashboard'));
   }
 
   const creatorInfo = () => {

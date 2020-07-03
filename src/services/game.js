@@ -6,4 +6,4 @@ export const getGames = () => get('/api/v1/game');
 
 export const getGame = (id) => get(`/api/v1/game/${id}`);
 
-export const patchAnswer = (id, answer) => patch(`/api/v1/game/${id}`, answer);
+export const patchGame = (id, answer) => patch(`/api/v1/game/${id}`, answer);
