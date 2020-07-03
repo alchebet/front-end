@@ -110,12 +110,38 @@ const gameGuesses = game.guess?.map(guess => (
     )
   }
 
+  const closedGuesseTable = () => {
+    const closedGuesses = game.guess?.map(guess => {
+      return (
+        <tr key={guess._id}>
+          <td>{guess.bettor.displayName}</td> 
+          <td>{guess.guess}</td>
+        </tr>
+      )
+      })
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Guess</th>
+          </tr>
+        </thead>  
+        <tbody>
+          {closedGuesses}
+        </tbody>  
+      </table>
+    )    
+  }
+  
+
   return (
     <div>
       <h1>Game Details</h1>
       <h2>Title: {game.title}</h2>
       <h3>Description: {game.description}</h3>
-      {creatorInfo()}
+      {game.winners?.length > 0 ? closedGuesseTable() : creatorInfo()}
     </div>
   )
 }
