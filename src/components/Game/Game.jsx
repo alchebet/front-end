@@ -11,6 +11,7 @@ export default function Game() {
   const [guess, setGuess] = useState('');
   const [currentGuess, setCurrentGuess] = useState({});
   const [isCreator, setIsCreator] = useState(false);
+  const [winners, setWinners] = useState([]);
   const user = useUser();
   const {id} = useParams();
   const history = useHistory();
@@ -57,14 +58,37 @@ export default function Game() {
     )
   }
 
-const gameGuesses = game.guess?.map(guess => (<li>bettor: {guess.bettor.displayName}, guess: {guess.guess}</li>))
+const selectWinner = (event) => {
+  console.log(event.target.checked)
+  if(event.target.checked)setWinners([...winners, event.target.value])
+  if(!event.target.checked){
+    const newWinners = winners.filter(winner => winner !== event.target.value)
+    setWinners(newWinners)
+  }
+}
+
+const gameGuesses = game.guess?.map(guess => (
+    <li>
+      bettor: {guess.bettor.displayName}, guess: {guess.guess}
+      <input type="checkbox" onChange={selectWinner} name="winner" value={guess.bettor._id}/>
+      <label for="winner">Winner</label>
+      </li>
+  ))
+
+  const handleCloseGame = (event) => {
+    event.preventDefault();
+    console.log(winners);
+  }
 
   const creatorInfo = () => {
     if(isCreator)
     return (
       <div>
       {isAnswer()}
-      <ul>{gameGuesses}</ul>
+        <form onSubmit={handleCloseGame}>
+          {gameGuesses}
+          <input type="submit" value="Submit"/>
+        </form>
       </div>
     )
     else if (currentGuess)
