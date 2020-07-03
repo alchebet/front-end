@@ -3,15 +3,13 @@ import { getGames } from '../../services/game';
 import { Link } from 'react-router-dom';
 
 export default function ListOfGames() {
-  const [games, setGames] = useState([]);
   const [openGames, setOpenGames] = useState([]);
   const [closedGames, setClosedGames] = useState([]);
 
   useEffect(() => {
     getGames()
     .then(games => {
-      setGames(games)
-      games.map(game => {
+      games.forEach(game => {
         if(game.winners.length > 0) setClosedGames(closedGames => [...closedGames, game])
         else setOpenGames(openGames => [...openGames, game])
       })
