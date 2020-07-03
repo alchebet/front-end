@@ -113,8 +113,8 @@ const gameGuesses = game.guess?.map(guess => (
   return (
     <div>
       <h1>Game Details</h1>
-      <h2>{game.title}</h2>
-      <h3>{game.description}</h3>
+      <h2>Title: {game.title}</h2>
+      <h3>Description: {game.description}</h3>
       {creatorInfo()}
     </div>
   )

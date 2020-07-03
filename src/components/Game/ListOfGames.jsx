@@ -26,7 +26,7 @@ export default function ListOfGames() {
 
   const closedGameList = closedGames.map((game, i) => (
     <Link to={`/game/${game._id}`} key={i}>
-    <li key={i}>{game.title} <p>{game.winners[0]}</p></li>
+    <li key={i}>{game.title} <p>{game.winners.map(winners => `${winners.displayName} `)}</p></li>
     </Link>
   ));
 
