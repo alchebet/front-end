@@ -15,8 +15,6 @@ export default function Dashboard() {
    .then(() => history.push('/'))
  }
 
- console.log(user)
-
   return (
     <div>
       <h1>{user.displayName}'s Dashboard</h1>

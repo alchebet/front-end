@@ -87,10 +87,12 @@ const gameGuesses = game.guess?.map(guess => (
     return (
       <div>
       {isAnswer()}
-        <form onSubmit={handleCloseGame}>
+       {game.guess.length > 0 ? 
+       <form onSubmit={handleCloseGame}>
           {gameGuesses}
           <input type="submit" value="Submit"/>
-        </form>
+        </form> 
+        : ''}
       </div>
     )
     else if (currentGuess)
@@ -141,6 +143,7 @@ const gameGuesses = game.guess?.map(guess => (
       <h1>Game Details</h1>
       <h2>Title: {game.title}</h2>
       <h3>Description: {game.description}</h3>
+      <h5>{game.answer}</h5>
       {game.winners?.length > 0 ? closedGuesseTable() : creatorInfo()}
     </div>
   )
