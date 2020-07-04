@@ -8,10 +8,12 @@ import './App.css';
 import AuthPage from '../Auth/Auth';
 import Dashboard from '../Dashboard/Dashboard';
 import Game from '../Game/Game';
+import Nav from '../Nav/Nav';
 
 function App() {
   return (
     <Router>
+      <Nav />
       <Switch>
         <Route exact path="/game/:id" component={Game} />
         <Route path="/dashboard" component={Dashboard}/>
